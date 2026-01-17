@@ -227,3 +227,32 @@ nextWeekBtn.addEventListener("click", () => {
 fillInputsForSelectedDate();
 renderOrUpdateCharts();
 
+const summaryBtn = document.getElementById("summaryBtn");
+const summaryText = document.getElementById("summaryText");
+
+summaryBtn.addEventListener("click", async () => {
+  summaryText.textContent = "Generating…";
+
+  // Use the same week currently shown on your charts
+  const { isoDates, sleep, study, exercise } = getWeekArrays(dateInput.value);
+
+  try {
+    const res = await fetch("http://127.0.0.1:8000/summary", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dates: isoDates,
+        sleep,
+        study,
+        exercise
+      })
+    });
+
+    if (!res.ok) throw new Error("Server error");
+    const data = await res.json();
+    summaryText.textContent = data.summary;
+  } catch (e) {
+    summaryText.textContent =
+      "Couldn’t generate summary. Is the Python server running?";
+  }
+});
