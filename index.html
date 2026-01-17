@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weekly Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Weekly Tracker</h1>
+    <p>Pick a date → enter hours → save → see 7-day bar charts</p>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>Enter a Day</h2>
+
+      <form id="trackerForm" class="form">
+        <label>
+          Date
+          <input type="date" id="dateInput" required />
+        </label>
+
+        <label>
+          Study (hours)
+          <input type="number" id="studyInput" min="0" max="24" step="0.1" required />
+        </label>
+
+        <label>
+          Exercise (hours)
+          <input type="number" id="exerciseInput" min="0" max="24" step="0.1" required />
+        </label>
+
+        <label>
+          Sleep (hours)
+          <input type="number" id="sleepInput" min="0" max="24" step="0.1" required />
+      </label>
+
+
+        <div class="buttons">
+          <button type="submit">Save</button>
+          <button type="button" id="clearBtn" class="secondary">Clear All Data</button>
+        </div>
+
+        <p id="status" class="status"></p>
+        <div class="weeknav">
+          <button type="button" id="prevWeekBtn" class="secondary">◀</button>
+          <p id="weekLabel" class="weeklabel"></p>
+          <button type="button" id="nextWeekBtn" class="secondary">▶</button>
+        </div>
+      </form>
+    </section>
+
+
+    <section class="grid">
+      <section class="card">
+        <h2>Study (hours) — 7 days</h2>
+        <canvas id="studyChart"></canvas>
+      </section>
+
+      <section class="card">
+        <h2>Exercise (hours) — 7 days</h2>
+        <canvas id="exerciseChart"></canvas>
+      </section>
+
+      <section class="card">
+        <h2>Sleep (hours) — 7 days</h2>
+        <canvas id="sleepChart"></canvas>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
